@@ -12,7 +12,7 @@ typedef struct {
 } User;
 
 
-int is_duplicate(int id) {
+int isExistingUser(int id) {
     FILE *file = fopen(USER_FILE, "r");
     if (!file) {
         perror("Error opening file");
@@ -60,7 +60,7 @@ void add_user() {
     printf("Enter User ID: ");
     scanf("%d", &id);
     
-    if (is_duplicate(id)) {
+    if (isExistingUser(id)) {
         printf("Error: User ID %d already exists. Please enter a different ID.\n", id);
         fclose(file);
         return;
