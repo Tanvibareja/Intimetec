@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <math.h> 
+void main()
+{  
+    int B;
+    printf("enetr B");
+    scanf("%d",&B);
+    int N;
+    printf("enter N");
+    scanf("%d",&N);
+    int M;
+    printf("enter M");
+    scanf("%d",&M);
+    int c = pow(B,N);
+    int res = c%M;
+    printf("%d",res);
+}
