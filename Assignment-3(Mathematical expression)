@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+long long ModExponent(long long B, long long N, long long M) {
+    long long result = 1;
+    for (long long i = 0; i < N; i++) {
+        result = (result * B) % M; 
+    }
+    return result;
+}
+
+int main() {
+    long long B, N, M;
+    printf("Enter base (B): ");
+    scanf("%lld", &B);
+    printf("Enter exponent (N): ");
+    scanf("%lld", &N);
+    printf("Enter modulus (M): ");
+    scanf("%lld", &M);
+    long long result = ModExponent(B, N, M);
+    printf("Result: %lld\n", result);
+    return 0;
+}
