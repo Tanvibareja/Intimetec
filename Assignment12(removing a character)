@@ -1,0 +1,23 @@
+#include<stdio.h>
+void main()
+{
+    char str[100];
+    scanf("%[^\n]",str);
+    getchar();
+    char a;
+    scanf("%c",&a);
+    getchar();
+    char str1[100];
+    int i;
+    int j=0;
+    for(i=0;str[i]!='\0';i++)
+    {
+        if(str[i]!=a)
+        {
+            str1[j] = str[i];
+            j++;
+        }
+    }
+    str1[j]='\0';
+    printf("%s",str1);
+}
