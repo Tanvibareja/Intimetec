@@ -1,0 +1,59 @@
+void main()
+{
+    char str[100];
+    char str1[100];
+    scanf("%[^\n]",str);
+    int count=1;
+    int k=0;
+    int i = 0;
+    int l=0;
+    int arr[30];
+    int len1=0;
+    int len2=0;
+    int len;
+    while(str[i]!='\0')
+    {
+        len1++;
+        i++;
+    }
+    i=0;
+    while(str[i]!='\0')
+    {
+        int j = i+1;
+        while(str[i]==str[j])
+        {
+            count++;
+            j++;
+        }
+        str1[k]=str[i];
+        k++;
+        arr[l]=count;
+        l++;
+        i=j;
+        count=1;   
+    }
+    str1[k]='\0';
+
+    i=0;
+    while(str1[i]!='\0')
+    {
+        len2++;
+        i++;
+    }
+    len = len2*2; //total len of final string
+
+    if(len>len1)
+    {
+        printf("%s",str);
+    }
+    else
+    {
+     l=0;
+    for(i=0;str1[i]!='\0';i++)
+    {
+        printf("%c",str1[i]);
+        printf("%d",arr[l]);
+        l++;
+    }
+    }  
+}
