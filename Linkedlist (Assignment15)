@@ -1,0 +1,328 @@
+struct node
+{
+    int data;
+    struct node * next;
+};
+
+struct node * addlast(struct node *head,int val)
+{
+    struct node * newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = val;
+    newnode->next = NULL;
+    struct node* temp;
+    if(head==NULL)
+    {
+        head = newnode;
+        return head;
+    }
+    else
+    {
+       temp = head;
+       while(temp->next!=NULL)
+       {
+        temp = temp->next;
+       }
+       temp->next = newnode;
+       return head;
+    }
+}
+
+
+
+struct node*addfirst(struct node * head,int val)
+{
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = val;
+    struct node * temp;
+    if(head==NULL)
+    {
+        temp = newnode;
+        head = newnode;
+        return head;
+    }
+
+    else
+    {
+        newnode->next = head;
+        head = newnode;
+        return head;
+    }
+}
+
+
+struct node* addatpos(struct node * head,int pos, int val)
+{
+struct node * temp;
+temp = head;
+int count = 0;
+while(temp!=NULL)
+{
+    count++;
+    temp = temp->next;
+}
+
+if(pos>count)
+{
+  printf("invalid position");
+}
+
+else
+{
+    temp = head;
+    int count1 = 1;
+    while(count1!=pos-1)
+    {
+        temp = temp->next;
+        count1++;
+    }
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = val;
+    newnode->next = NULL;
+    struct node * temp1;
+    temp1 = temp->next;
+    temp->next = newnode;
+    newnode->next = temp1;
+    return head;
+}
+}
+
+
+void display(struct node * head)
+{
+    struct node * temp;
+    temp = head;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp = temp->next;
+    }
+}
+
+
+struct node * updateatpos(struct node * head, int pos, int val)
+{
+struct node * temp;
+temp = head;
+int count = 0;
+while(temp!=NULL)
+{
+    count++;
+    temp = temp->next;
+}
+
+if(pos>count)
+{
+  printf("invalid position");
+  return head;
+}
+
+else
+{
+    temp = head;
+    int count1 = 1;
+    while(count1!=pos)
+    {
+        temp = temp->next;
+        count1++;
+    }
+    temp->data = val;
+    return head;
+}
+}
+
+
+struct node *deletefirst(struct node * head)
+{
+    struct node * temp;
+    if(head->next==NULL)
+    {
+        head = NULL;
+        return head;
+    }
+
+    else if(head==NULL)
+    {
+        return head;
+    }
+    else
+    {
+        head = head->next;
+        return head;
+    }
+}
+
+
+struct node * deletelast(struct node * head)
+{
+    struct node * temp;
+    struct node * prev;
+
+    if(head->next==NULL)
+    {
+        head=NULL;
+        return head;
+    }
+
+    else
+    {
+        prev = head;
+        temp = head->next;
+        while(temp->next!=NULL)
+        {
+            temp = temp->next;
+            prev = prev->next;
+        }
+        prev->next = NULL;
+        return head;
+    }
+}
+
+
+struct node* deletefrompos(struct node * head, int pos)
+{
+struct node * temp;
+temp = head;
+int count =0;
+while(temp!=NULL)
+{
+    count++;
+    temp = temp->next;
+}
+
+if(pos>count)
+{
+  printf("invalid position");
+  return head;
+}
+
+else
+{
+temp = head;
+int count1 = 1;
+while(count1!=pos-1)
+{
+    temp= temp->next;
+    count1++;
+}
+struct node * temp1;
+temp1 = temp->next;
+temp->next = temp1->next;
+return head;
+}
+}
+
+
+struct node * updateatend(struct node * head,int val)
+{
+if(head==NULL)
+{
+    printf("no node in list");
+    return head;
+}
+
+else if(head->next==NULL)
+{
+    head->data = val;
+    return head;
+}
+
+else
+{
+    struct node * temp;
+    temp = head;
+    while(temp->next!=NULL)
+    {
+        temp = temp->next;
+    }
+    temp->data = val;
+    return head;
+}
+}
+
+struct node * updatefirst(struct node * head, int val)
+{
+    if(head==NULL)
+    {
+        printf("no node in the list");
+        return head;
+    }
+    else
+    {
+        head->data = val;
+        return head;
+    }
+}
+
+
+
+void main()
+{
+    struct node *head;
+    head = NULL;
+    int n;
+    scanf("%d",&n);
+    int choice;
+    int count=1;
+    while(count<=n)
+    {
+    scanf("%d",&choice);
+    switch (choice)
+    {
+    case 1: int val;
+            scanf("%d",&val);
+            head = addlast(head,val);
+            break;
+
+    case 2: int val1;
+            scanf("%d",&val1);
+            head = addfirst(head,val1);
+            break;
+
+    case 3: int val2;
+            int pos;
+            scanf("%d",&pos);
+            scanf("%d",&val2);
+            head = addatpos(head,pos,val2);
+            break;
+
+    case 4: display(head);
+            break;
+
+    case 5: int pos1;
+            scanf("%d",&pos1);
+            int val3;
+            scanf("%d",&val3);
+            head = updateatpos(head,pos1,val3);
+            break;
+
+    case 6: head = deletefirst(head);
+            break;
+
+    case 7: head = deletelast(head);
+            break;
+
+    case 8: int pos2;
+            scanf("%d",&pos2);
+            head = deletefrompos(head,pos2);
+            break;
+
+    case 9: int val4;
+            scanf("%d",&val4);
+            head = updateatend(head,val4);
+            break;
+
+    case 10: int val5;
+            scanf("%d",&val5);
+            head = updatefirst(head,val5);
+            break;
+
+    default: printf("please enter no. between 1-10");
+                break;
+
+    }
+    count++;
+    }
+}
