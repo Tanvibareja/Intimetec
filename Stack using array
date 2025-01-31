@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<conio.h>
+#define max 7
+int stack[max];
+int top = -1;
+
+void push(int val)
+{
+if(top==max-1)
+{
+    printf("overflow");
+}
+else
+{
+    top++;
+    stack[top] = val;
+}
+}
+
+void pop()
+{
+    if(top==-1)
+    {
+        printf("underflow");
+    }
+    else
+    {
+        printf("the popped element is %d",stack[top]);
+        top--;
+    }
+}
+
+void display()
+{
+    if(top==-1)
+    {
+        printf("underflow");
+    }
+    else
+    {
+        for(int i=0;i<=top;i++)
+        {
+            printf("%d ",stack[i]);
+        }
+    }
+}
+
+
+void main()
+{
+    int num;
+    printf("enter the number of operations to be performed");
+    scanf("%d",&num);
+    int count = 1;
+    while(count<=num)
+    {
+        int choice;
+        printf("1.push , 2.pop, 3.display");
+        scanf("%d",&choice);
+
+        switch(choice)
+        {
+            case 1: int val;
+                    printf("enter the val to be pushed");
+                    scanf("%d",&val);
+                    push(val);
+                    break;
+
+            case 2: pop();
+                    break;
+
+            case 3: display();
+                    break;
+        }
+        count++;   
+    }
+}
