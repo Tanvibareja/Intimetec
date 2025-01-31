@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node * next;
+};
+
+struct node * insert(struct node * head, int val)
+{
+    struct node * ptr;
+    ptr = (struct node*) malloc(sizeof(struct node));
+    ptr->data = val;
+    ptr->next = NULL;
+    if(head==NULL)
+    {
+        head = ptr;
+        return head;
+    }
+    else
+    {
+        struct node * temp;
+        temp = head;
+        while(temp->next!=NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = ptr;
+        ptr->next=NULL;
+        return head;
+    }
+}
+
+
+struct node * delete(struct node * head)
+{
+    if(head==NULL)
+    {
+        return head;
+    }
+    else if(head->next==NULL)
+    {
+        head==NULL;
+        return head;
+    }
+    else
+    {
+        struct node * temp;
+        temp = head;
+        head = head->next;
+        free(temp);
+        return head;
+    }
+}
+
+void display(struct node * head)
+{
+    if(head==NULL)
+    {
+        printf("NULL");
+    }
+    else
+    {
+        struct node * temp;
+        temp = head;
+        while(temp!=NULL)
+        {
+            printf("%d",temp->data);
+            temp = temp->next;
+        }
+    }
+}
+
+
+void main()
+{
+    struct node * head;
+    head = NULL;
+    int num;
+    printf("the number of times you want to perform these operations");
+    scanf("%d",&num);
+    int count=1;
+    while(count<=num)
+    {
+        int choice;
+        printf("enter 1 for insertion 2 for deletion 3 for display");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: int val;
+                    printf("enter val");
+                    scanf("%d",&val);
+                    head = insert(head,val);
+                    break;
+
+            case 2: head = delete(head);
+                    break;
+
+            case 3: display(head);
+                    break;
+        }
+        count++;
+    }
+}
