@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node * next;
+};
+struct node * top = NULL;
+
+
+void push(int val)
+{
+    struct node * newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->data = val;
+
+    if(top==NULL)
+    {
+        newnode->next = NULL;
+        top = newnode;
+    }
+    else
+    {
+        newnode->next = top;
+        top = newnode;
+    }
+}
+
+
+void pop()
+{
+    if(top==NULL)
+    {
+        printf("underflow");
+    }
+    else
+    {
+        struct node * temp;
+        temp = top;
+        top = top->next;
+        free(temp);
+    }
+}
+
+void display()
+{
+    if(top==NULL)
+    {
+        printf("underflow");
+    }
+    else
+    {
+        struct node * temp;
+        temp = top;
+        while(temp!=NULL)
+        {
+            printf("%d",temp->data);
+            temp = temp->next;
+        }
+    }
+}
+
+
+
+
+void main()
+{
+    int num;
+    printf("enter the number of operations to be performed");
+    scanf("%d",&num);
+    int count = 1;
+    while(count<=num)
+    {
+        int choice;
+        printf("1.push , 2.pop, 3.display");
+        scanf("%d",&choice);
+
+        switch(choice)
+        {
+            case 1: int val;
+                    printf("enter the val to be pushed");
+                    scanf("%d",&val);
+                    push(val);
+                    break;
+
+            case 2: pop();
+                    break;
+
+            case 3: display();
+                    break;
+        }
+        count++;   
+    }
+}
