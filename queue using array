@@ -1,0 +1,84 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define MAX 10
+int queue[MAX];
+int front =-1;
+int rear = -1;
+
+void insert(int val)
+{
+    if(rear==-1 && front==-1)
+    {
+        rear++;
+        front++;
+        queue[rear] = val;
+    }
+    else if(rear==MAX-1)
+    {
+        printf("overflow");
+    }
+    else
+    {
+        rear++;
+        queue[rear] = val;
+    }
+}
+
+
+void delete()
+{
+    if(front==-1 && rear==-1)
+    {
+        printf("underflow");
+    }
+
+    else if(front>rear)
+    {
+        printf("all deleted");
+    }
+
+    else
+    {
+        printf("%d is deleted",queue[front]);
+        front++;
+    }
+}
+
+void display()
+{
+    for(int i=front;i<=rear;i++)
+    {
+        printf("%d ",queue[i]);
+    }
+}
+
+
+void main()
+{
+    int num;
+    printf("the number of times you want to perform these operations");
+    scanf("%d",&num);
+    int count=1;
+    while(count<=num)
+    {
+        int choice;
+        printf("enter 1 for insertion 2 for deletion 3 for display");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: int val;
+                    printf("enter val");
+                    scanf("%d",&val);
+                    insert(val);
+                    break;
+
+            case 2: delete();
+                    break;
+
+            case 3: display();
+                    break;
+        }
+        count++;
+    }
+}
