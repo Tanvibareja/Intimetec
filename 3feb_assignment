@@ -1,0 +1,140 @@
+Problem: Given a list of students {name, marks, roll_number}, sort them first by descending marks, then by ascending roll number if marks are the same. 
+Input : 
+4 
+Alice 85 103 
+Bob 90 101 
+Charlie 85 102 
+David 95 104
+ 
+output: 
+David 95 104
+Bob 90 101
+Charlie 85 102
+Alice 85 103
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct node
+{
+    char name[100];
+    int marks;
+    int roll_num;
+    struct node * next;
+};
+
+
+struct node * createnode(struct node *head,char name1[], int marks1, int roll_no1)
+{
+    struct node * ptr;
+    ptr = (struct node*)malloc(sizeof(struct node));
+    ptr->marks = marks1;
+    ptr->roll_num = roll_no1;
+    strcpy(ptr->name , name1); /////////?
+    if(head==NULL)
+    {
+        head = ptr;
+        return head;
+    }
+
+    else
+    {
+        struct node * temp;
+        temp = head;
+        while(temp->next!=NULL)
+        {
+            temp = temp->next;
+
+        }
+        temp->next = ptr;
+        return head;
+    }
+
+}
+
+
+
+struct node * sort(struct node * head)
+{
+    struct node * ptr1;
+    struct node * ptr2;
+    ptr1 = head;
+    ptr2 = ptr1->next;
+         int temp1;
+        int temp2;
+        char name2[100];
+    while(ptr1->next!=NULL)
+    {
+        ptr2 = ptr1->next;
+        while(ptr2!=NULL)
+        {
+            if(ptr2->marks>ptr1->marks)
+            {
+                strcpy(name2, ptr2->name);
+                temp1 = ptr2->marks;
+                temp2 = ptr2->roll_num;
+                strcpy(ptr2->name,ptr1->name);
+                ptr2->marks = ptr1->marks;
+                ptr2->roll_num = ptr1->roll_num;
+                strcpy(ptr1->name,name2);
+                ptr1->marks = temp1;
+                ptr1->roll_num = temp2;
+            }
+            else if(ptr2->marks==ptr1->marks)
+            {
+                if(ptr2->roll_num<ptr1->roll_num)
+                {
+                strcpy(name2, ptr2->name);
+                temp1 = ptr2->marks;
+                temp2 = ptr2->roll_num;
+                strcpy(ptr2->name,ptr1->name);
+                ptr2->marks = ptr1->marks;
+                ptr2->roll_num = ptr1->roll_num;
+                strcpy(ptr1->name,name2);
+                ptr1->marks = temp1;
+                ptr1->roll_num = temp2;
+                }
+            }
+            ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+    }
+    return head;
+
+}
+int main()
+{
+    struct node * head;
+    head = NULL;
+    int number;
+    scanf("%d",&number);
+    int count=1;
+    char name1[100];
+    int marks1;
+    int roll_num1;
+    while(count<=number)
+    {
+        scanf("%[^ ]",name1);
+        if(scanf("%d",&marks1)==1);
+
+        if(scanf("%d",&roll_num1)==1);
+
+        head = createnode(head,name1,marks1,roll_num1);
+        count++;
+    }
+
+     head = sort(head);
+
+     struct node * temp;
+     temp = head;
+     while(temp!=NULL)
+     {
+        printf("%s ",temp->name);
+        printf("%d ",temp->marks);
+        printf("%d ",temp->roll_num);
+        printf("\n");
+        temp = temp->next;
+     }
+     return 1;
+}
