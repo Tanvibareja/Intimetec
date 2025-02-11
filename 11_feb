@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct node
+{
+    char ch;
+    struct node * next;
+};
+struct node * top = NULL;
+
+
+
+struct node * createnode_addtostack(struct node *top,char ch1)
+{
+    struct node * newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->ch = ch1;
+    if(top==NULL)
+    {
+        newnode->next=NULL;
+        top = newnode;
+        return top;
+    }
+
+    else
+    {
+        newnode->next = top;
+        top = newnode;
+        return top;
+    }
+}
+
+char pop(struct node * top)
+{
+    printf("the popped value is %c\n",top->ch);
+    return top->ch;
+}
+
+void main()
+{
+    
+    char string1[100];
+    printf("enter the string");
+    scanf("%s",string1);
+    int i=0;
+    while(string1[i]!='\0')
+    {
+        top = createnode_addtostack(top,string1[i]);
+        i++;
+    }
+    int j=0;
+    char res[100];
+    while(top!=NULL)
+    {
+        res[j] = pop(top);
+        j++;
+        top = top->next;
+    }
+    printf("%s",res);
+
+    if(strcmp(string1,res)==0)
+    {
+        printf("a palindrome");
+    }
+    else
+    {
+        printf("not a palindrome");
+    }
+}
