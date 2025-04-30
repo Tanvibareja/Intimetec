@@ -1,0 +1,183 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define TABLE_SIZE 10
+
+struct node 
+{
+    int key;
+    int value;
+    struct node * next;
+};
+
+struct node * hashtable[TABLE_SIZE];
+
+int hashfunc(int key)
+{
+    return key%TABLE_SIZE;
+}
+
+
+void insert(int index,int key1, int value1)
+{
+struct node * newnode;
+newnode = (struct node *)malloc(sizeof(struct node));
+newnode->key = key1;
+newnode->value = value1;
+newnode->next = NULL;
+
+
+if(hashtable[index]==NULL)
+{
+    hashtable[index]=newnode;
+}
+
+else
+{
+    struct node * temp;
+    temp = hashtable[index];
+    while(temp->next!=NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
+}
+
+
+int search(int index, int key1)
+{
+    struct node * temp;
+    temp = hashtable[index];
+    while(temp!=NULL)
+    {
+        if(temp->key == key1)
+        {
+            return temp->value;
+        }
+        else
+        {
+            temp = temp->next;
+        }
+    }
+    return -1;
+}
+
+
+void display()
+{
+    struct node * temp;
+    for(int i=0;i<TABLE_SIZE;i++)
+    {
+        temp = hashtable[i];
+        while(temp!=NULL)
+        {
+            printf("%d-%d\n",temp->key,temp->value);
+            temp = temp->next;
+        }
+    }
+}
+
+int delete(int index, int key1, int value1)
+{
+    struct node * temp;
+    struct node * prev;
+    if(hashtable[index]->key==key1)
+    {
+        temp = hashtable[index];
+        hashtable[index] = hashtable[index]->next;
+        free(temp);
+    }
+    
+    else
+    {
+        prev = hashtable[index];
+        temp = hashtable[index]->next;
+        while(temp!=NULL)
+        {
+            if(temp->key == key1 && temp->value==value1)
+            {
+                prev->next = temp->next;
+                free(temp);
+                return 1;
+            }
+            
+            else
+            {
+                prev = prev->next;
+                temp = temp->next;
+            }
+        }
+        return -1;
+    }
+}
+
+int main()
+{
+    for(int i=0;i<TABLE_SIZE;i++)
+    {
+        hashtable[i]=NULL;
+    }
+    int key1;
+    int value1;
+    int number_of_operations;
+    printf("enter the number of operations to be performed");
+    scanf("%d",&number_of_operations);
+    int count=1;
+    int index;
+    int searched;
+    int deleted;
+
+    while(count<=number_of_operations)
+    {
+        int choice;
+        printf("enter the choice");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: 
+                    printf("enter the key to be added");
+                    scanf("%d",&key1);
+                    printf("enter the value associated with it");
+                    scanf("%d",&value1);
+                    index = hashfunc(key1);
+                    insert(index,key1,value1);
+                    break;
+
+            case 2: printf("enter the key to be searched");
+                    scanf("%d",&key1);
+                    index = hashfunc(key1);
+                    searched = search(index,key1);
+                    if(searched==-1)
+                    {
+                        printf("key not found");
+                    }
+                    else
+                    {
+                        printf("the value of the key is %d",searched);
+                    }
+                    break;
+
+            case 3: printf("enter the key value pair to be deleted");
+                    scanf("%d %d",&key1,&value1);
+                    index = hashfunc(key1);
+                    deleted = delete(index,key1,value1);
+                    if(deleted==-1)
+                    {
+                        printf("key-pair not found");
+                    }
+                    else
+                    {
+                        printf("the key value %d and %d is deleted",key1,value1);
+                    }
+                    break;
+
+            case 4: display();
+                    break;
+                    
+        }
+        count++;
+    }
+    return 0;
+}
+
